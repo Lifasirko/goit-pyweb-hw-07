@@ -23,14 +23,14 @@ async def top_students_by_average_mark(session, number_of_students: int):
     return result.fetchall()
 
 
-async def top_student_in_discipline(session, discipline_id):
+async def top_student_in_discipline(discipline_id):
     avg_marks = select(Student.name, func.avg(Mark.value).label('average_mark')) \
         .join(Mark, Mark.student_id == Student.id) \
         .where(Mark.discipline_id == discipline_id) \
         .group_by(Student.id) \
         .order_by(func.avg(Mark.value).desc()) \
         .limit(1)
-    result = await session.execute(avg_marks)
+    result = await async_session.execute(avg_marks)
     return result.fetchone()
 
 
