@@ -12,6 +12,9 @@ PGHOST = env.str("DB_HOST")
 PGPORT = env.str("DB_PORT")
 DATABASE = env.str("DATABASE")
 
+# синхронне підключення для alembic
+SYNC_POSTGRES_URI = f"postgresql://{PGUSER}:{PGPASS}@{PGHOST}:{PGPORT}/{PGNAME}"
+# асинхронне підключення алхімії
 POSTGRES_URI = f"postgresql+asyncpg://{PGUSER}:{PGPASS}@{PGHOST}:{PGPORT}/{PGNAME}"
 
 engine = create_async_engine(

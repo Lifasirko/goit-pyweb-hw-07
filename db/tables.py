@@ -30,14 +30,14 @@ class Discipline(Base):
     __tablename__ = 'discipline'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(250))
-    teacher_id = Column(Integer, ForeignKey("teacher.id"))
+    teacher_id = Column(Integer, ForeignKey(Teacher.id))
 
 
 class Student(Base):
     __tablename__ = 'student'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(250))
-    group_id = Column(Integer, ForeignKey("group.id"))
+    group_id = Column(Integer, ForeignKey(Group.id, ondelete="CASCADE"))
 
 
 class Mark(TimeBaseModel):
@@ -45,5 +45,5 @@ class Mark(TimeBaseModel):
     id = Column(Integer, primary_key=True, autoincrement=True)
     value = Column(Integer)
     name = Column(String(250))
-    discipline_id = Column(Integer, ForeignKey("discipline.id"))
-    student_id = Column(Integer, ForeignKey("student.id"))
+    discipline_id = Column(Integer, ForeignKey(Discipline.id, ondelete="CASCADE"))
+    student_id = Column(Integer, ForeignKey(Student.id, ondelete="CASCADE"))
