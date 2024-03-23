@@ -37,6 +37,28 @@ async def get_all_teachers():
         return names
 
 
+async def update_teacher(teacher_id, name):
+    async with async_session() as session:
+        async with session.begin():
+            # Знаходимо викладача за ID
+            teacher = await session.get(Teacher, teacher_id)
+            # Якщо викладач знайдений, оновлюємо його ім'я
+            if teacher:
+                teacher.name = name
+                await session.commit()
+
+
+async def remove_teacher(teacher_id):
+    async with async_session() as session:
+        async with session.begin():
+            # Знаходимо викладача за ID
+            teacher = await session.get(Teacher, teacher_id)
+            # Якщо викладач знайдений, видаляємо його
+            if teacher:
+                await session.delete(teacher)
+                await session.commit()
+
+
 async def add_group(name, student):
     async with async_session() as session:
         group = Group(name=name, student=student)

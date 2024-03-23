@@ -47,9 +47,9 @@ async def main(args):
         elif args.action == "list":
             print(await qc.get_all_teachers())
         elif args.action == "update":
-            await update_teacher(args.id, args.name)
+            await qc.update_teacher(args.id, args.name)
         elif args.action == "remove":
-            await remove_teacher(args.id)
+            await qc.remove_teacher(args.id)
     # Add more conditions for other models here
 
 if __name__ == "__main__":
